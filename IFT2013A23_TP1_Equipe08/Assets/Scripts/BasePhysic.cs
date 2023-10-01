@@ -5,7 +5,10 @@ using UnityEngine;
 public class BasePhysic : MonoBehaviour
 {
     public Vector3 force = new Vector3(0, -9.81f, 0);
-    public float mass = 1.0f;
+    [SerializeField] public float mass = 1.0f;
+    
+    [SerializeField] public float frictionCoefficient = 0.1f; // Coefficient de frottement
+
 
     private Vector3 acceleration;
     private Vector3 velocity;
@@ -20,7 +23,10 @@ public class BasePhysic : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        acceleration = force/mass;
+        
+        Vector3 friction = -velocity.normalized * frictionCoefficient * mass * 9.81f;
+        
+        acceleration = (force + friction) / mass;
         velocity += acceleration * Time.deltaTime;
         position += velocity * Time.deltaTime;
 
