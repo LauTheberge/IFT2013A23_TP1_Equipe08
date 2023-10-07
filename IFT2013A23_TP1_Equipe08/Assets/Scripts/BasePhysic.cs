@@ -11,26 +11,17 @@ public class BasePhysic : MonoBehaviour
 
 
     private Vector3 acceleration;
-    private Vector3 velocity;
-    private Vector3 position;
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-       position = transform.position;
-    }
+    public Vector3 velocity;
 
     // Update is called once per frame
     void Update()
     {
+        transform.position += velocity * Time.deltaTime;
         
-        Vector3 friction = -velocity.normalized * frictionCoefficient * mass * 9.81f;
+        //Vector3 friction = -velocity.normalized * frictionCoefficient * mass * 9.81f;
         
-        acceleration = (force + friction) / mass;
+        acceleration = force / mass;
         velocity += acceleration * Time.deltaTime;
-        position += velocity * Time.deltaTime;
-
-        transform.position = position;
     }
     
     void ExternalForce(Vector3 externalForce)
