@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class CustomCollisionDetection : MonoBehaviour
 {
-    // TODO : remove hard coded value for sphereRadius
-    public float sphereRadius = 0.1f;
+    // TODO : SCRAP THIS FILE
+    public float sphereRadius = 0.2f;
     public GameObject plane;
     private BasePhysic _physiqueUpdate;
 

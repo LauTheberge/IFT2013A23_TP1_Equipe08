@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Mover : MonoBehaviour
 {
+    // TODO : Mettre notre physic dans le mover
+    // 
+    
     [SerializeField]float moveSpeed = 5;
     // Start is called before the first frame update
     void Start()
