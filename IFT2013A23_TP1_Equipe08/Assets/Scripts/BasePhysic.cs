@@ -18,9 +18,9 @@ public class BasePhysic : MonoBehaviour
     {
         transform.position += velocity * Time.deltaTime;
         
-        //Vector3 friction = -velocity.normalized * frictionCoefficient * mass * 9.81f;
+        Vector3 friction = -velocity.normalized * frictionCoefficient * mass * 9.81f;
         
-        acceleration = force / mass;
+        acceleration = (force + friction) / mass;
         velocity += acceleration * Time.deltaTime;
     }
     

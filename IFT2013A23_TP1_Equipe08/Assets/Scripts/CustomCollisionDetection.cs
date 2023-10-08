@@ -4,41 +4,55 @@ using UnityEngine;
 
 public class CustomCollisionDetection : MonoBehaviour
 {
-    public float sphereHalfSize = 0.1f; // Comme le cube Unity par défaut a une taille de 1x1x1.
-    public GameObject plane; // Glissez et déposez l'objet Plane ici depuis l'inspecteur.
+    // TODO : remove hard coded value for sphereRadius
+    public float sphereRadius = 0.1f;
+    public GameObject plane;
     private BasePhysic _physiqueUpdate;
+
     private void Start()
     {
         _physiqueUpdate = GetComponent<BasePhysic>();
     }
-    
-private void Update()
+
+    private void Update()
     {
         CheckCollisionWithPlane();
+        UpdateBallPosition();
     }
-    
-    
+
     void CheckCollisionWithPlane()
     {
-        // Prenez la position Y du bas du cube.
-        float sphereBottom = transform.position.y - sphereHalfSize;
+        Vector3 sphereCenter = transform.position;
+        float distanceToPlane = Vector3.Dot(plane.transform.up, sphereCenter - plane.transform.position);
 
-        // Pour un plan avec un MeshCollider, la position y du plan représente le "haut" du plan.
-        float planeTop = plane.transform.position.y;
-
-        // Si le bas du cube est inférieur ou égal au haut du plan, nous considérons qu'il y a collision.
-        if (sphereBottom <= planeTop)
+        if (distanceToPlane <= sphereRadius)
         {
-            Debug.Log("Collision détectée Sphere!");
-            HandleCollision();
+            Debug.Log("Collision detected with plane!");
+            HandleCollision(distanceToPlane);
         }
     }
-    
-    void HandleCollision()
+
+    void HandleCollision(float distanceToPlane)
     {
-        _physiqueUpdate.velocity = Vector3.zero;
+        // Calculate the penetration depth.
+        float penetrationDepth = sphereRadius - distanceToPlane;
+
+        // Calculate the correction vector to move the ball out of the plane.
+        Vector3 correction = plane.transform.up * penetrationDepth;
+
+        // Adjust the position of the ball.
+        transform.position += correction;
         
-        // Positionnez le cube directement au-dessus du plan.
-        transform.position = new Vector3(transform.position.x, plane.transform.position.y + sphereHalfSize , transform.position.z);
+        // Zero out the vertical velocity component.
+        Vector3 velocity = _physiqueUpdate.velocity;
+        velocity.y = 0f;
+        _physiqueUpdate.velocity = velocity;
+    }
+
+    void UpdateBallPosition()
+    {
+        // Update the position of the ball based on its velocity.
+        Vector3 velocity = _physiqueUpdate.velocity;
+        transform.position += velocity * Time.deltaTime;
     }
 }
