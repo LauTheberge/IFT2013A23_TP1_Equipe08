@@ -311,7 +311,6 @@ GameObject:
   - component: {fileID: 201115438}
   - component: {fileID: 201115441}
   - component: {fileID: 201115440}
-  - component: {fileID: 201115439}
   m_Layer: 0
   m_Name: GoalPlane(1)
   m_TagString: Untagged
@@ -328,34 +327,12 @@ Transform:
   m_GameObject: {fileID: 201115437}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.013, y: 0.026062012, z: 0.744}
+  m_LocalPosition: {x: -0.017, y: 0.026062012, z: 0.744}
   m_LocalScale: {x: 0.083453916, y: 1, z: 0.1379387}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1455748922}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &201115439
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 201115437}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &201115440
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1622,7 +1599,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1201777815}
-  - component: {fileID: 1201777816}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1639,26 +1615,12 @@ Transform:
   m_GameObject: {fileID: 1201777813}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.86, y: 0.317, z: 8.51}
+  m_LocalPosition: {x: 3.89, y: 3.17, z: -2.845}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1201777816
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1201777813}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dde4a5822519c7a418f4ea8019e3701e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sphereRadius: 0.2
-  plane: {fileID: 2039353506}
 --- !u!1 &1261601315
 GameObject:
   m_ObjectHideFlags: 0
@@ -1952,7 +1914,6 @@ GameObject:
   - component: {fileID: 1493174982}
   - component: {fileID: 1493174985}
   - component: {fileID: 1493174984}
-  - component: {fileID: 1493174983}
   m_Layer: 0
   m_Name: GoalPlane
   m_TagString: Untagged
@@ -1975,28 +1936,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1358267908}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &1493174983
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1493174981}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &1493174984
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2075,7 +2014,7 @@ Transform:
   m_GameObject: {fileID: 1500542532}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -1, z: -0, w: 0.0000029206274}
-  m_LocalPosition: {x: 0.015504952, y: 0.48406208, z: 1.4121743}
+  m_LocalPosition: {x: -0.042, y: 0.48406208, z: 1.389}
   m_LocalScale: {x: -0.8272241, y: 0.9312288, z: 0.042554084}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2390,7 +2329,7 @@ Transform:
   m_GameObject: {fileID: 1551903935}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.70710576, z: -0, w: 0.70710784}
-  m_LocalPosition: {x: 0.4093993, y: 0.48816204, z: 0.7445001}
+  m_LocalPosition: {x: 0.376, y: 0.48816204, z: 0.744}
   m_LocalScale: {x: -1.3311532, y: 0.9230139, z: 0.042554088}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2495,7 +2434,7 @@ Transform:
   m_GameObject: {fileID: 1558041090}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -1, z: -0, w: 0.0000029206274}
-  m_LocalPosition: {x: 0.023499774, y: 0.48816204, z: 0.052000213}
+  m_LocalPosition: {x: -0.018, y: 0.48816204, z: 0.052}
   m_LocalScale: {x: -0.8112116, y: 0.9230139, z: 0.042554084}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2705,7 +2644,7 @@ Transform:
   m_GameObject: {fileID: 1837158051}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.70710576, z: -0, w: 0.70710784}
-  m_LocalPosition: {x: -0.39425442, y: 0.11286199, z: 0.744}
+  m_LocalPosition: {x: -0.457, y: 0.11286199, z: 0.744}
   m_LocalScale: {x: -1.3311532, y: 0.1738337, z: 0.042554088}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2793,7 +2732,6 @@ GameObject:
   - component: {fileID: 2039353510}
   - component: {fileID: 2039353509}
   - component: {fileID: 2039353508}
-  - component: {fileID: 2039353507}
   m_Layer: 0
   m_Name: Plane
   m_TagString: Untagged
@@ -2801,28 +2739,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!64 &2039353507
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2039353506}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &2039353508
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2991,7 +2907,7 @@ Transform:
   m_GameObject: {fileID: 2118063914}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.292, y: 1.7, z: -0.317}
+  m_LocalPosition: {x: 5.29, y: 1.611, z: 0.511}
   m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3038,8 +2954,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dde4a5822519c7a418f4ea8019e3701e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sphereRadius: 0.1
-  plane: {fileID: 2039353506}
+  sphereRadius: 0.2
+  plancher: {fileID: 2039353506}
+  goalPlane: {fileID: 1493174981}
+  goalPlane2: {fileID: 201115437}
 --- !u!114 &2118063923
 MonoBehaviour:
   m_ObjectHideFlags: 0

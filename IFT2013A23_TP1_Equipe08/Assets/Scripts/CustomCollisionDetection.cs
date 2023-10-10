@@ -1,17 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CustomCollisionDetection : MonoBehaviour
 {
-    // TODO : SCRAP THIS FILE
+    // TODO : SCRAP THIS FILE;
     public float sphereRadius = 0.2f;
-    public GameObject plane;
-    private BasePhysic _physiqueUpdate;
+    public GameObject plancher;
+    public GameObject goalPlane;
+    public GameObject goalPlane2;
+    
+    private BasePhysic _physiqueUpdatesphere;
 
     private void Start()
     {
-        _physiqueUpdate = GetComponent<BasePhysic>();
+        _physiqueUpdatesphere = GetComponent<BasePhysic>();
     }
 
     private void Update()
@@ -23,13 +27,26 @@ public class CustomCollisionDetection : MonoBehaviour
     void CheckCollisionWithPlane()
     {
         Vector3 sphereCenter = transform.position;
-        float distanceToPlane = GetDistanceToPlane(sphereCenter, plane.GetComponent<MeshFilter>());
+        float distanceToPlancher = GetDistanceToPlane(sphereCenter, plancher.GetComponent<MeshFilter>());
+        float distanceToGoal = GetDistanceToPlane(sphereCenter, goalPlane.GetComponent<MeshFilter>());
+        float distanceToGoal2 = GetDistanceToPlane(sphereCenter, goalPlane2.GetComponent<MeshFilter>());
         
-        
-        if (IsSphereCollidingWithOBB(sphereCenter, sphereRadius, plane.GetComponent<MeshFilter>()))
+        if (IsSphereCollidingWithOBB(sphereCenter, sphereRadius, plancher.GetComponent<MeshFilter>()))
         {
             Debug.Log("Collision detected with plane!");
-            HandleCollision(distanceToPlane);
+            HandleCollisionPLancher(distanceToPlancher);
+        }
+        
+        if (IsSphereCollidingWithOBB(sphereCenter, sphereRadius, goalPlane.GetComponent<MeshFilter>()))
+        {
+            Debug.Log("Collision detected with plane!");
+            HandleCollisionPLancher(distanceToGoal);
+        }
+        
+        if (IsSphereCollidingWithOBB(sphereCenter, sphereRadius, goalPlane2.GetComponent<MeshFilter>()))
+        {
+            Debug.Log("Collision detected with plane!");
+            HandleCollisionPLancher(distanceToGoal2);
         }
     }
     
@@ -117,21 +134,30 @@ public class CustomCollisionDetection : MonoBehaviour
     }
     
 
-    void HandleCollision(float distanceToPlane)
+    void HandleCollisionPLancher(float distanceToPlane)
     {
         // Calculate the penetration depth.
         float penetrationDepth = sphereRadius - distanceToPlane;
 
         // Calculate the correction vector to move the ball out of the plane.
-        Vector3 correction = plane.transform.up * penetrationDepth;
+        Vector3 correction = plancher.transform.up * penetrationDepth;
 
         // Adjust the position of the ball.
         transform.position += correction;
         
         // Zero out the vertical velocity component.
-        Vector3 velocity = _physiqueUpdate.velocity;
-        velocity.y = 0f;
-        _physiqueUpdate.velocity = velocity;
+        Vector3 velocity = _physiqueUpdatesphere.velocity;
+        
+        if ( velocity.y > -0.5 && velocity.y < 0.5)
+        {
+            velocity.y = 0;
+        }
+        else
+        {
+            velocity.y = -velocity.y/2 ;
+        }
+        
+        _physiqueUpdatesphere.velocity = velocity;
     }
 
     // void UpdateBallPosition()
