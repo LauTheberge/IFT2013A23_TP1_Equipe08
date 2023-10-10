@@ -17,20 +17,105 @@ public class CustomCollisionDetection : MonoBehaviour
     private void Update()
     {
         CheckCollisionWithPlane();
-        UpdateBallPosition();
+        // UpdateBallPosition();
     }
 
     void CheckCollisionWithPlane()
     {
         Vector3 sphereCenter = transform.position;
-        float distanceToPlane = Vector3.Dot(plane.transform.up, sphereCenter - plane.transform.position);
-
-        if (distanceToPlane <= sphereRadius)
+        float distanceToPlane = GetDistanceToPlane(sphereCenter, plane.GetComponent<MeshFilter>());
+        
+        
+        if (IsSphereCollidingWithOBB(sphereCenter, sphereRadius, plane.GetComponent<MeshFilter>()))
         {
             Debug.Log("Collision detected with plane!");
             HandleCollision(distanceToPlane);
         }
     }
+    
+    List<Vector3> GetVerticesOBBPlan()
+    {
+        // Trouvez tous les GameObjects avec un MeshFilter dans la scène
+        MeshFilter[] meshFilters = FindObjectsOfType<MeshFilter>();
+        List<Vector3> verticesOBB = new List<Vector3>();
+        
+        foreach (MeshFilter filter in meshFilters)
+        {
+            Bounds bounds = filter.mesh.bounds;
+            
+            // Coins de l'AABB dans l'espace local
+            Vector3 localFrontBottomLeft = new Vector3(bounds.min.x, bounds.min.y, bounds.min.z);
+            Vector3 localFrontBottomRight = new Vector3(bounds.max.x, bounds.min.y, bounds.min.z);
+            Vector3 localFrontTopLeft = new Vector3(bounds.min.x, bounds.max.y, bounds.min.z);
+            Vector3 localFrontTopRight = new Vector3(bounds.max.x, bounds.max.y, bounds.min.z);
+            Vector3 localBackBottomLeft = new Vector3(bounds.min.x, bounds.min.y, bounds.max.z);
+            Vector3 localBackBottomRight = new Vector3(bounds.max.x, bounds.min.y, bounds.max.z);
+            Vector3 localBackTopLeft = new Vector3(bounds.min.x, bounds.max.y, bounds.max.z);
+            Vector3 localBackTopRight = new Vector3(bounds.max.x, bounds.max.y, bounds.max.z);
+            
+            // Transformez les coins de l'AABB pour obtenir l'OBB en coordonnées mondiales
+            Vector3 frontBottomLeft = filter.transform.TransformPoint(localFrontBottomLeft);
+            Vector3 frontBottomRight = filter.transform.TransformPoint(localFrontBottomRight);
+            Vector3 frontTopLeft = filter.transform.TransformPoint(localFrontTopLeft);
+            Vector3 frontTopRight = filter.transform.TransformPoint(localFrontTopRight);
+            Vector3 backBottomLeft = filter.transform.TransformPoint(localBackBottomLeft);
+            Vector3 backBottomRight = filter.transform.TransformPoint(localBackBottomRight);
+            Vector3 backTopLeft = filter.transform.TransformPoint(localBackTopLeft);
+            Vector3 backTopRight = filter.transform.TransformPoint(localBackTopRight);
+            
+            verticesOBB.Add(frontBottomLeft);
+            verticesOBB.Add(frontBottomRight);
+            verticesOBB.Add(frontTopLeft);
+            verticesOBB.Add(frontTopRight);
+            verticesOBB.Add(backBottomLeft);
+            verticesOBB.Add(backBottomRight);
+            verticesOBB.Add(backTopLeft);
+            verticesOBB.Add(backTopRight);
+        }
+        return verticesOBB;
+    }
+    bool IsSphereCollidingWithOBB(Vector3 sphereCenter, float radius, MeshFilter filter)
+    {
+        Bounds bounds = filter.mesh.bounds;
+
+        // Convertir le centre de la sphère en espace local de l'OBB
+        Vector3 localSphereCenter = filter.transform.InverseTransformPoint(sphereCenter);
+
+        // Trouver le point le plus proche sur l'AABB en espace local
+        Vector3 closestPoint = new Vector3(
+            Mathf.Clamp(localSphereCenter.x, bounds.min.x, bounds.max.x),
+            Mathf.Clamp(localSphereCenter.y, bounds.min.y, bounds.max.y),
+            Mathf.Clamp(localSphereCenter.z, bounds.min.z, bounds.max.z)
+        );
+
+        // Convertir le point le plus proche en coordonnées mondiales
+        closestPoint = filter.transform.TransformPoint(closestPoint);
+
+        // Vérifier si ce point est à l'intérieur de la sphère
+        return Vector3.Distance(closestPoint, sphereCenter) <= radius;
+    }
+
+    float GetDistanceToPlane(Vector3 sphereCenter, MeshFilter filter)
+    {
+        Bounds bounds = filter.mesh.bounds;
+
+        // Convertir le centre de la sphère en espace local de l'OBB
+        Vector3 localSphereCenter = filter.transform.InverseTransformPoint(sphereCenter);
+
+        // Trouver le point le plus proche sur l'AABB en espace local
+        Vector3 closestPoint = new Vector3(
+            Mathf.Clamp(localSphereCenter.x, bounds.min.x, bounds.max.x),
+            Mathf.Clamp(localSphereCenter.y, bounds.min.y, bounds.max.y),
+            Mathf.Clamp(localSphereCenter.z, bounds.min.z, bounds.max.z)
+        );
+
+        // Convertir le point le plus proche en coordonnées mondiales
+        closestPoint = filter.transform.TransformPoint(closestPoint);
+
+        // Vérifier si ce point est à l'intérieur de la sphère
+        return Vector3.Distance(closestPoint, sphereCenter);
+    }
+    
 
     void HandleCollision(float distanceToPlane)
     {
@@ -49,10 +134,10 @@ public class CustomCollisionDetection : MonoBehaviour
         _physiqueUpdate.velocity = velocity;
     }
 
-    void UpdateBallPosition()
-    {
+    // void UpdateBallPosition()
+    //{
         // Update the position of the ball based on its velocity.
-        Vector3 velocity = _physiqueUpdate.velocity;
-        transform.position += velocity * Time.deltaTime;
-    }
+        // Vector3 velocity = _physiqueUpdate.velocity;
+        // transform.position += velocity * Time.deltaTime;
+    // }
 }

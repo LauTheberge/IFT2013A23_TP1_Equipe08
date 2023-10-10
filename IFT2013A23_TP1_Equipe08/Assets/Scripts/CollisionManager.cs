@@ -23,19 +23,19 @@ public class CollisionManager : MonoBehaviour
         // Ajouter tag à tous les objets 
         // Aller chercher game object par tag
 
-        if (collisionList.Contains("Wall"))
+        //if (collisionList.Contains("Wall"))
         {
             //arrête
         }
-        else if (collisionList.Contains("Plane"))
+        //else if (collisionList.Contains("Plane"))
         {
             //ne tombe pas
         }
-        else if(collisionList.Contains("GoalPlane"))
+        //else if(collisionList.Contains("GoalPlane"))
         {
             // appeler méthode checkGoal de game manager et ne pas tomber plus bas
         }
-        else if(collisionList.Contains("Cube"))
+        //else if(collisionList.Contains("Cube"))
         {
             //glisse ou rebondit (pour l'instant elle va arrrêter)
         }
