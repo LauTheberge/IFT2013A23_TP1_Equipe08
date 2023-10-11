@@ -33,19 +33,19 @@ public class CustomCollisionDetection : MonoBehaviour
         
         if (IsSphereCollidingWithOBB(sphereCenter, sphereRadius, plancher.GetComponent<MeshFilter>()))
         {
-            Debug.Log("Collision detected with plane!");
+            Debug.Log("Collision detected with plancher!");
             HandleCollisionPLancher(distanceToPlancher);
         }
         
         if (IsSphereCollidingWithOBB(sphereCenter, sphereRadius, goalPlane.GetComponent<MeshFilter>()))
         {
-            Debug.Log("Collision detected with plane!");
+            Debug.Log("Collision detected with goal!");
             HandleCollisionPLancher(distanceToGoal);
         }
         
         if (IsSphereCollidingWithOBB(sphereCenter, sphereRadius, goalPlane2.GetComponent<MeshFilter>()))
         {
-            Debug.Log("Collision detected with plane!");
+            Debug.Log("Collision detected with goal2!");
             HandleCollisionPLancher(distanceToGoal2);
         }
     }
