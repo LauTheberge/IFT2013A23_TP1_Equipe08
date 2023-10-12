@@ -7,15 +7,18 @@ public class CustomCollisionDetection : MonoBehaviour
 {
     // TODO : SCRAP THIS FILE;
     public float sphereRadius = 0.2f;
+    public GameObject sphere;
     public GameObject plancher;
     public GameObject goalPlane;
     public GameObject goalPlane2;
+    public List<GameObject> gameObjectsPlancher;
+    public List<GameObject> gameObjectsMur;
     
     private BasePhysic _physiqueUpdatesphere;
 
     private void Start()
     {
-        _physiqueUpdatesphere = GetComponent<BasePhysic>();
+        _physiqueUpdatesphere = sphere.GetComponent<BasePhysic>();
     }
 
     private void Update()
@@ -26,7 +29,7 @@ public class CustomCollisionDetection : MonoBehaviour
 
     void CheckCollisionWithPlane()
     {
-        Vector3 sphereCenter = transform.position;
+        Vector3 sphereCenter = sphere.transform.position;
         float distanceToPlancher = GetDistanceToPlane(sphereCenter, plancher.GetComponent<MeshFilter>());
         float distanceToGoal = GetDistanceToPlane(sphereCenter, goalPlane.GetComponent<MeshFilter>());
         float distanceToGoal2 = GetDistanceToPlane(sphereCenter, goalPlane2.GetComponent<MeshFilter>());
@@ -143,7 +146,7 @@ public class CustomCollisionDetection : MonoBehaviour
         Vector3 correction = plancher.transform.up * penetrationDepth;
 
         // Adjust the position of the ball.
-        transform.position += correction;
+        sphere.transform.position += correction;
         
         // Zero out the vertical velocity component.
         Vector3 velocity = _physiqueUpdatesphere.velocity;
@@ -152,6 +155,7 @@ public class CustomCollisionDetection : MonoBehaviour
         {
             velocity.y = 0;
         }
+        
         else
         {
             velocity.y = -velocity.y/2 ;
