@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class CustomCollisionDetection : MonoBehaviour
 {
-    // TODO : SCRAP THIS FILE;
     public float sphereRadius = 0.2f;
     public GameObject sphere;
     public GameObject plancher;

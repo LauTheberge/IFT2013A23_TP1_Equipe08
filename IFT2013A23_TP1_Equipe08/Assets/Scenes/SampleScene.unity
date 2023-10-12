@@ -164,37 +164,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 31466205}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97acccc48c971e94fbea526d3c8ab850, type: 3}
+  m_Script: {fileID: 11500000, guid: dde4a5822519c7a418f4ea8019e3701e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _objectsList:
-  - {fileID: 2118063914}
-  - {fileID: 1261601315}
-  - {fileID: 788522045}
-  - {fileID: 1523830823}
-  - {fileID: 828080968}
-  - {fileID: 915918205}
-  - {fileID: 165099647}
-  - {fileID: 2039353506}
-  - {fileID: 1493174981}
-  - {fileID: 1310730993}
-  - {fileID: 602482015}
-  - {fileID: 869555535}
-  - {fileID: 818006667}
-  - {fileID: 201115437}
-  - {fileID: 1500542532}
-  - {fileID: 1558041090}
-  - {fileID: 1551903935}
-  - {fileID: 1837158051}
-  - {fileID: 1654196561}
-  - {fileID: 1528812842}
-  - {fileID: 939369416}
-  - {fileID: 640382250}
-  - {fileID: 636403274}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  sphereRadius: 0.2
+  sphere: {fileID: 2118063914}
+  plancher: {fileID: 2039353506}
+  goalPlane: {fileID: 1493174981}
+  goalPlane2: {fileID: 201115437}
+  gameObjectsPlancher: []
+  gameObjectsMur: []
 --- !u!1 &165099647
 GameObject:
   m_ObjectHideFlags: 0
@@ -1509,6 +1488,7 @@ GameObject:
   - component: {fileID: 963194228}
   - component: {fileID: 963194227}
   - component: {fileID: 963194226}
+  - component: {fileID: 963194229}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1583,13 +1563,27 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.28713718, y: 0.000869762, z: 0.00026133365, w: 0.957889}
-  m_LocalPosition: {x: 5.33, y: 1.85, z: -2.19}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 5.317, y: 1.1, z: -2.595}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 33.373, y: 0.125, z: 0.069}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &963194229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9284ea3c2c91d8b4cb88b680aeadffc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5
+  rotationSpeed: 0.5
 --- !u!1 &1201777813
 GameObject:
   m_ObjectHideFlags: 0
@@ -2817,10 +2811,9 @@ GameObject:
   - component: {fileID: 2118063916}
   - component: {fileID: 2118063920}
   - component: {fileID: 2118063921}
-  - component: {fileID: 2118063922}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2919,22 +2912,6 @@ MonoBehaviour:
   mass: 1
   frictionCoefficient: 0.1
   velocity: {x: 0, y: 0, z: 0}
---- !u!114 &2118063922
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2118063914}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dde4a5822519c7a418f4ea8019e3701e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sphereRadius: 0.2
-  plancher: {fileID: 2039353506}
-  goalPlane: {fileID: 1493174981}
-  goalPlane2: {fileID: 201115437}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
