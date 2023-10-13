@@ -9,30 +9,31 @@ public class BasePhysic : MonoBehaviour
     
     [SerializeField] public float frictionCoefficient = 0.5f; // Coefficient de frottement
 
-
+    private Vector3 friction;
     private Vector3 acceleration;
     public Vector3 velocity;
 
     // Update is called once per frame
-    void Update()
+    public void CustomUpdate()
     {
+        // Debug.Log("velocity : " + velocity);
         transform.position += velocity * Time.deltaTime;
         
-        Vector3 friction = -velocity.normalized * frictionCoefficient * mass * 9.81f;
+        friction = -velocity.normalized * frictionCoefficient * mass * 9.81f;
         
         acceleration = (force + friction) / mass;
         velocity += acceleration * Time.deltaTime;
+        friction = -friction/3;
     }
     
-    public void AddForce(Vector3 externalForce)
+   public void AddForce(Vector3 externalForce)
     {
         force += externalForce;
     }
     
     public void ApplyFriction()
     {
-        Vector3 friction = -velocity.normalized * frictionCoefficient * mass * 9.81f;
+        friction = -velocity.normalized * frictionCoefficient * mass * 9.81f;
         force += friction;
-        velocity += (friction / mass) * Time.deltaTime;
     }
 }

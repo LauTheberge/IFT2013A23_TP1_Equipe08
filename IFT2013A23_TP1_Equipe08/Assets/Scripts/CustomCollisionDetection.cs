@@ -23,6 +23,7 @@ public class CustomCollisionDetection : MonoBehaviour
     {
         CheckCollisionWithPlane();
         // UpdateBallPosition();
+        _physiqueUpdatesphere.CustomUpdate();
     }
 
     void CheckCollisionWithPlane()
@@ -48,6 +49,7 @@ public class CustomCollisionDetection : MonoBehaviour
                 HandleCollisionMur(distanceToPlancher,  sphereRadius, sphereCenter,mur.GetComponent<MeshFilter>());
             }
         }
+        
             
         // Vector3 sphereCenter = sphere.transform.position;
         // float distanceToPlancher = GetDistanceToPlane(sphereCenter, plancher.GetComponent<MeshFilter>());
@@ -171,15 +173,12 @@ public class CustomCollisionDetection : MonoBehaviour
         // Zero out the vertical velocity component.
         Vector3 velocity = _physiqueUpdatesphere.velocity;
         
+        velocity.y = -velocity.y/2 ;
         
-        if ( velocity.y >= -0.1 && velocity.y <= 0.1)
+        if ( velocity.y >= -0.5 && velocity.y <= 0.5)
         {
-            Debug.Log("velocity.y = 0");
+            // Debug.Log("velocity.y = 0");
             velocity.y = 0;
-        }
-        else
-        {
-            velocity.y = -velocity.y/2 ;
         }
         
         _physiqueUpdatesphere.velocity.y = velocity.y;

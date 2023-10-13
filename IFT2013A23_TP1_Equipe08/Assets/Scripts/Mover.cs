@@ -33,8 +33,7 @@ public class Mover : MonoBehaviour
 
                 _physics.AddForce(moveForceVector);
             }
-
-
+            
             _physics.ApplyFriction();
             if (_physics.velocity.magnitude < 0.1f)
             {
