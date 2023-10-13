@@ -4,28 +4,47 @@ using UnityEngine;
 
 public class Mover : MonoBehaviour
 {
-    // TODO : Mettre notre physic dans le mover
-    // 
-    
-    [SerializeField]float moveSpeed = 10;
-    // Start is called before the first frame update
+    private BasePhysic _physics;
+
+    public float moveForce = 10f;
+    public Camera mainCamera;
+    private bool isGrounded = false;
+    public GameObject sphere;
+
     void Start()
     {
+        _physics = sphere.GetComponent<BasePhysic>();
     }
 
     // Update is called once per frame
     void Update()
     {
-       MovePlayer();
+        if (isGrounded)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                Vector3 oppositeDirection = mainCamera.transform.forward;
+                oppositeDirection.y = 0;
+
+                oppositeDirection.Normalize();
+
+                Vector3 moveForceVector = oppositeDirection * moveForce;
+
+
+                _physics.AddForce(moveForceVector);
+            }
+
+
+            _physics.ApplyFriction();
+            if (_physics.velocity.magnitude < 0.1f)
+            {
+                _physics.velocity = Vector3.zero;
+            }
+        }
     }
 
-    void PrintInstruction(string instruction)
+    public void SetGrounded(bool grounded)
     {
-        Debug.Log(instruction);
-    }
-
-    void MovePlayer()
-    {
-       
+        isGrounded = grounded;
     }
 }

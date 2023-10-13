@@ -14,10 +14,12 @@ public class CustomCollisionDetection : MonoBehaviour
     public List<GameObject> gameObjectsMur;
     
     private BasePhysic _physiqueUpdatesphere;
+    private Mover _mover;
 
     private void Start()
     {
         _physiqueUpdatesphere = sphere.GetComponent<BasePhysic>();
+        _mover = sphere.GetComponent<Mover>();
     }
 
     private void Update()
@@ -151,7 +153,7 @@ public class CustomCollisionDetection : MonoBehaviour
         Vector3 velocity = _physiqueUpdatesphere.velocity;
         
         if ( velocity.y > -0.5 && velocity.y < 0.5)
-        {
+        {  
             velocity.y = 0;
         }
         
@@ -161,6 +163,7 @@ public class CustomCollisionDetection : MonoBehaviour
         }
         
         _physiqueUpdatesphere.velocity = velocity;
+        _mover.SetGrounded(true);
     }
 
     // void UpdateBallPosition()
