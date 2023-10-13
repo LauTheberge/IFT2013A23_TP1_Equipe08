@@ -193,6 +193,7 @@ MonoBehaviour:
   - {fileID: 602482015}
   - {fileID: 1558041090}
   - {fileID: 1500542532}
+  - {fileID: 1500542532}
 --- !u!1 &165099647
 GameObject:
   m_ObjectHideFlags: 0
@@ -2491,12 +2492,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2118063914}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 48fc42f9e57b5cb45944178cb720a1b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveForce: 50
+  moveForce: 500
   mainCamera: {fileID: 963194227}
   sphere: {fileID: 2118063914}
 --- !u!114 &2118063921
@@ -2511,10 +2512,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0828cf982a5e34847ba98f895b3f53f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  force: {x: 0, y: -9.81, z: 0}
+  gravity: {x: 0, y: -9.81, z: 0}
   mass: 1
   frictionCoefficient: 0.1
   velocity: {x: 0, y: 0, z: 0}
+  force: {x: 0, y: -9.81, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
