@@ -22,7 +22,6 @@ public class CustomCollisionDetection : MonoBehaviour
     private void Update()
     {
         CheckCollisionWithPlane();
-        // UpdateBallPosition();
         _physiqueUpdatesphere.CustomUpdate();
     }
 
@@ -49,30 +48,6 @@ public class CustomCollisionDetection : MonoBehaviour
                 HandleCollisionMur(distanceToPlancher,  sphereRadius, sphereCenter,mur.GetComponent<MeshFilter>());
             }
         }
-        
-            
-        // Vector3 sphereCenter = sphere.transform.position;
-        // float distanceToPlancher = GetDistanceToPlane(sphereCenter, plancher.GetComponent<MeshFilter>());
-        // float distanceToGoal = GetDistanceToPlane(sphereCenter, goalPlane.GetComponent<MeshFilter>());
-        // float distanceToGoal2 = GetDistanceToPlane(sphereCenter, goalPlane2.GetComponent<MeshFilter>());
-        
-        // if (IsSphereCollidingWithOBB(sphereCenter, sphereRadius, plancher.GetComponent<MeshFilter>()))
-        // {
-        //   Debug.Log("Collision detected with plancher!");
-        //  HandleCollisionPLancher(distanceToPlancher);
-            // }
-        
-            // if (IsSphereCollidingWithOBB(sphereCenter, sphereRadius, goalPlane.GetComponent<MeshFilter>()))
-            // {
-            // Debug.Log("Collision detected with goal!");
-            // HandleCollisionPLancher(distanceToGoal);
-            // }
-        
-            // if (IsSphereCollidingWithOBB(sphereCenter, sphereRadius, goalPlane2.GetComponent<MeshFilter>()))
-            // {
-            // Debug.Log("Collision detected with goal2!");
-            // HandleCollisionPLancher(distanceToGoal2);
-            // }
     }
     
     List<Vector3> GetVerticesOBBPlan()
@@ -179,10 +154,15 @@ public class CustomCollisionDetection : MonoBehaviour
         {
             // Debug.Log("velocity.y = 0");
             velocity.y = 0;
+            _mover.SetGrounded(true);
+        }
+        else
+        {
+            _mover.SetGrounded(false);
         }
         
         _physiqueUpdatesphere.velocity.y = velocity.y;
-        _mover.SetGrounded(true);
+        
     }
 
     void HandleCollisionMur(float distanceToPlane, float radius, Vector3 sphereCenter, MeshFilter filter)
@@ -219,11 +199,4 @@ public class CustomCollisionDetection : MonoBehaviour
             sphere.transform.position = newSphereCenter;
         }
     }
-
-    // void UpdateBallPosition()
-    //{
-        // Update the position of the ball based on its velocity.
-        // Vector3 velocity = _physiqueUpdate.velocity;
-        // transform.position += velocity * Time.deltaTime;
-    // }
 }
