@@ -2535,7 +2535,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48fc42f9e57b5cb45944178cb720a1b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 3
+  moveForce: 50
+  mainCamera: {fileID: 963194227}
+  sphere: {fileID: 2118063914}
 --- !u!114 &2118063921
 MonoBehaviour:
   m_ObjectHideFlags: 0

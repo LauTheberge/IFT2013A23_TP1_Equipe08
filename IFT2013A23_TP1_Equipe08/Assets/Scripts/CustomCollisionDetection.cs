@@ -183,6 +183,7 @@ public class CustomCollisionDetection : MonoBehaviour
         }
         
         _physiqueUpdatesphere.velocity.y = velocity.y;
+        _mover.SetGrounded(true);
     }
 
     void HandleCollisionMur(float distanceToPlane, float radius, Vector3 sphereCenter, MeshFilter filter)

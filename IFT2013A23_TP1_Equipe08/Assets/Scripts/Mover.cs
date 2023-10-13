@@ -6,7 +6,7 @@ public class Mover : MonoBehaviour
 {
     private BasePhysic _physics;
 
-    public float moveForce = 10f;
+    public float moveForce = 50f;
     public Camera mainCamera;
     private bool isGrounded = false;
     public GameObject sphere;
