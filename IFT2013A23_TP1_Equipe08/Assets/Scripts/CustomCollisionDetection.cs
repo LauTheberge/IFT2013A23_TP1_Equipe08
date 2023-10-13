@@ -32,7 +32,7 @@ public class CustomCollisionDetection : MonoBehaviour
             Vector3 sphereCenter = sphere.transform.position;
             if (IsSphereCollidingWithOBB(sphereCenter, sphereRadius, plancher.GetComponent<MeshFilter>()))
             {
-                Debug.Log("Collision detected with plancher!");
+                // Debug.Log("Collision detected with plancher!");
                 float distanceToPlancher = GetDistanceToPlane(sphereCenter, plancher.GetComponent<MeshFilter>());
                 HandleCollisionPLancher(distanceToPlancher, plancher);
             }
@@ -43,7 +43,7 @@ public class CustomCollisionDetection : MonoBehaviour
             Vector3 sphereCenter = sphere.transform.position;
             if (IsSphereCollidingWithOBB(sphereCenter, sphereRadius, mur.GetComponent<MeshFilter>()))
             {
-                Debug.Log("Collision detected with mur!");
+                // Debug.Log("Collision detected with mur!");
                 float distanceToPlancher = GetDistanceToPlane(sphereCenter, mur.GetComponent<MeshFilter>());
                 HandleCollisionMur(distanceToPlancher,  sphereRadius, sphereCenter,mur.GetComponent<MeshFilter>());
             }
@@ -91,6 +91,7 @@ public class CustomCollisionDetection : MonoBehaviour
         }
         return verticesOBB;
     }
+    
     bool IsSphereCollidingWithOBB(Vector3 sphereCenter, float radius, MeshFilter filter)
     {
         Bounds bounds = filter.mesh.bounds;
