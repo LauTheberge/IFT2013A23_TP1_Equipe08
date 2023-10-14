@@ -4314,7 +4314,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gravity: {x: 0, y: -9.81, z: 0}
   mass: 1
-  frictionCoefficient: 0.1
+  frictionCoefficient: 0.2
   velocity: {x: 0, y: 0, z: 0}
   force: {x: 0, y: -9.81, z: 0}
 --- !u!1 &2140135783
