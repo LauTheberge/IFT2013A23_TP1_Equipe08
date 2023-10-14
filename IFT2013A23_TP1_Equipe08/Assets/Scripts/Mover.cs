@@ -19,7 +19,7 @@ public class Mover : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isGrounded)
+        if (isGrounded && _physics.velocity.magnitude < 0.1f)
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {

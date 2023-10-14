@@ -2,21 +2,30 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CustomCollisionDetection : MonoBehaviour
 {
+    [SerializeField] AudioClip youWin;
+    [SerializeField] AudioClip youLose;
+
     public float sphereRadius = 0.2f;
     public GameObject sphere;
     public List<GameObject> gameObjectsPlancher;
     public List<GameObject> gameObjectsMur;
-    
+
     private BasePhysic _physiqueUpdatesphere;
     private Mover _mover;
+    private bool playSound = true;
+
+    AudioSource audioSource;
+
 
     private void Start()
     {
         _physiqueUpdatesphere = sphere.GetComponent<BasePhysic>();
         _mover = sphere.GetComponent<Mover>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -37,7 +46,7 @@ public class CustomCollisionDetection : MonoBehaviour
                 HandleCollisionPLancher(distanceToPlancher, plancher);
             }
         }
-        
+
         foreach (GameObject mur in gameObjectsMur)
         {
             Vector3 sphereCenter = sphere.transform.position;
@@ -45,53 +54,11 @@ public class CustomCollisionDetection : MonoBehaviour
             {
                 // Debug.Log("Collision detected with mur!");
                 float distanceToPlancher = GetDistanceToPlane(sphereCenter, mur.GetComponent<MeshFilter>());
-                HandleCollisionMur(distanceToPlancher,  sphereRadius, sphereCenter,mur.GetComponent<MeshFilter>());
+                HandleCollisionMur(distanceToPlancher, sphereRadius, sphereCenter, mur.GetComponent<MeshFilter>());
             }
         }
     }
-    
-    List<Vector3> GetVerticesOBBPlan()
-    {
-        // Trouvez tous les GameObjects avec un MeshFilter dans la scène
-        MeshFilter[] meshFilters = FindObjectsOfType<MeshFilter>();
-        List<Vector3> verticesOBB = new List<Vector3>();
-        
-        foreach (MeshFilter filter in meshFilters)
-        {
-            Bounds bounds = filter.mesh.bounds;
-            
-            // Coins de l'AABB dans l'espace local
-            Vector3 localFrontBottomLeft = new Vector3(bounds.min.x, bounds.min.y, bounds.min.z);
-            Vector3 localFrontBottomRight = new Vector3(bounds.max.x, bounds.min.y, bounds.min.z);
-            Vector3 localFrontTopLeft = new Vector3(bounds.min.x, bounds.max.y, bounds.min.z);
-            Vector3 localFrontTopRight = new Vector3(bounds.max.x, bounds.max.y, bounds.min.z);
-            Vector3 localBackBottomLeft = new Vector3(bounds.min.x, bounds.min.y, bounds.max.z);
-            Vector3 localBackBottomRight = new Vector3(bounds.max.x, bounds.min.y, bounds.max.z);
-            Vector3 localBackTopLeft = new Vector3(bounds.min.x, bounds.max.y, bounds.max.z);
-            Vector3 localBackTopRight = new Vector3(bounds.max.x, bounds.max.y, bounds.max.z);
-            
-            // Transformez les coins de l'AABB pour obtenir l'OBB en coordonnées mondiales
-            Vector3 frontBottomLeft = filter.transform.TransformPoint(localFrontBottomLeft);
-            Vector3 frontBottomRight = filter.transform.TransformPoint(localFrontBottomRight);
-            Vector3 frontTopLeft = filter.transform.TransformPoint(localFrontTopLeft);
-            Vector3 frontTopRight = filter.transform.TransformPoint(localFrontTopRight);
-            Vector3 backBottomLeft = filter.transform.TransformPoint(localBackBottomLeft);
-            Vector3 backBottomRight = filter.transform.TransformPoint(localBackBottomRight);
-            Vector3 backTopLeft = filter.transform.TransformPoint(localBackTopLeft);
-            Vector3 backTopRight = filter.transform.TransformPoint(localBackTopRight);
-            
-            verticesOBB.Add(frontBottomLeft);
-            verticesOBB.Add(frontBottomRight);
-            verticesOBB.Add(frontTopLeft);
-            verticesOBB.Add(frontTopRight);
-            verticesOBB.Add(backBottomLeft);
-            verticesOBB.Add(backBottomRight);
-            verticesOBB.Add(backTopLeft);
-            verticesOBB.Add(backTopRight);
-        }
-        return verticesOBB;
-    }
-    
+
     bool IsSphereCollidingWithOBB(Vector3 sphereCenter, float radius, MeshFilter filter)
     {
         Bounds bounds = filter.mesh.bounds;
@@ -133,7 +100,7 @@ public class CustomCollisionDetection : MonoBehaviour
         // Vérifier si ce point est à l'intérieur de la sphère
         return Vector3.Distance(closestPoint, sphereCenter);
     }
-    
+
 
     void HandleCollisionPLancher(float distanceToPlane, GameObject plancher)
     {
@@ -145,13 +112,13 @@ public class CustomCollisionDetection : MonoBehaviour
 
         // Adjust the position of the ball.
         sphere.transform.position += correction;
-        
+
         // Zero out the vertical velocity component.
         Vector3 velocity = _physiqueUpdatesphere.velocity;
-        
-        velocity.y = -velocity.y/2 ;
-        
-        if ( velocity.y >= -0.5 && velocity.y <= 0.5)
+
+        velocity.y = -velocity.y / 2;
+
+        if (velocity.y >= -0.5 && velocity.y <= 0.5)
         {
             // Debug.Log("velocity.y = 0");
             velocity.y = 0;
@@ -161,9 +128,32 @@ public class CustomCollisionDetection : MonoBehaviour
         {
             _mover.SetGrounded(false);
         }
-        
+
         _physiqueUpdatesphere.velocity.y = velocity.y;
-        
+
+
+        if (plancher.gameObject.tag == "Finish" && playSound)
+        {
+            startWinSequence();
+        }
+        else if (plancher.gameObject.tag == "WrongGoal" && playSound)
+        {
+            startLoseSequence();
+        }
+    }
+
+    void startWinSequence()
+    {
+        audioSource.Stop();
+        audioSource.PlayOneShot(youWin);
+        playSound = false;
+    }
+
+    void startLoseSequence()
+    {
+        audioSource.Stop();
+        audioSource.PlayOneShot(youLose);
+        playSound = false;
     }
 
     void HandleCollisionMur(float distanceToPlane, float radius, Vector3 sphereCenter, MeshFilter filter)
